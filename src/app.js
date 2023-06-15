@@ -23,10 +23,10 @@ exports.lambdaHandler = async (event, context) => {
         if (responseGetPlano.data)
             return defaultResult(200, responseGetPlano.data)
         else
-            return errorResult(400, { 'Erro': 'Erro ao buscar planos' });
+            return errorResult(400, { 'Erro': 'Erro ao buscar planos no mercado pago' });
 
     } catch (error) {
-        console.log(`Erro ao ${etapa}`);
+        console.log(`Erro ao ${etapa} - ${error}`);
         return errorResult(500, { 'Erro': 'Erro no processo' });
     }
 }
