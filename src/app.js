@@ -13,12 +13,16 @@ exports.lambdaHandler = async (event, context) => {
 
         if (response.ok) {
 
-            console.log(response);
-            console.log(response.json());
-
             etapa = 'devolvendo planos para o cliente';
+
+            response.text().then((text) => {
+                console.log(text);
+            });
+
+
             response.json()
                 .then((planos) => {
+                    console.log(planos);
                     return defaultResult(200, planos);
                 });
         }
