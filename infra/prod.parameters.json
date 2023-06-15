@@ -1,7 +1,7 @@
 {
   "Parameters": {
     "Environment": "prod",
-    "BaseUrlMercadoPago": "https://api.mercadopago.com/",
+    "BaseUrlMercadoPago": "https://api.mercadopago.com",
     "SecretMercadoPagoPath": "",
     "SecretMercadoPagoUseEncryption": "false"
   }

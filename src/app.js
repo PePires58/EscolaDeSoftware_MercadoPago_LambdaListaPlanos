@@ -12,6 +12,7 @@ exports.lambdaHandler = async (event, context) => {
         const response = await buscaPlanosService.buscaPlanosAtivos(secret.Parameter.Value);
 
         response.on('data', (data) => {
+            console.log(data);
             return defaultResult(200, data);
         });
 
