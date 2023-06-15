@@ -9,19 +9,19 @@ exports.lambdaHandler = async (event, context) => {
         const secret = await buscaSecretService.buscaSecret();
 
         etapa = 'buscando planos no mercado pago';
-        const response = await buscaPlanosService.buscaPlanosAtivos(secret.Parameter.Value);
-
-        response.on('data', (data) => {
-            console.log(data);
-            return defaultResult(200, data);
-        });
-
-        response.on('error', (error) => {
-            console.log(`Erro ao ${etapa} - ${error}`);
-            return errorResult(400, {
-                'Erro': 'Erro ao buscar planos'
+        await buscaPlanosService.buscaPlanosAtivos(secret.Parameter.Value)
+            .then((planos) => {
+                console.log(planos);
+                return defaultResult(200, planos)
+            })
+            .catch((error) => {
+                console.log(`Erro ao ${etapa} - ${error}`);
+                return errorResult(400, {
+                    'Erro': 'Erro ao buscar planos'
+                });
             });
-        });
+
+
 
     } catch (error) {
         console.log(`Erro ao ${etapa}`);
