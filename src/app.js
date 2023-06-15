@@ -13,6 +13,9 @@ exports.lambdaHandler = async (event, context) => {
 
         if (response.ok) {
 
+            console.log(response);
+            console.log(response.json());
+
             etapa = 'devolvendo planos para o cliente';
             response.json()
                 .then((planos) => {
