@@ -13,7 +13,7 @@ exports.buscaPlanosAtivos = async function (secret) {
 
                 let planosRetorno;
                 res.on('data', planos => {
-                    planosRetorno = JSON.stringify(planos);
+                    planosRetorno = Buffer.concat(planos).toJSON();
                 });
                 res.on('end', () => {
                     resolve(planosRetorno);
