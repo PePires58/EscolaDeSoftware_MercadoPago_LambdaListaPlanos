@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Escola de software - Mercado Pago - Lambda Lista Planos
+Parameters:
+  Environment:
+    Description: Tipo do ambiente
+    Type: String
+  BaseUrlMercadoPago:
+    Description: Url Base do mercado pago
+    Type: String
+  SecretMercadoPagoPath:
+    Description: Caminho do secret do mercado pago
+    Type: String
+  SecretMercadoPagoUseEncryption:
+    Description: Secret do mercado pago usa encryption?
+    Type: String
+
+Resources:  
+  MercadoPagoLambdaListaPlanosFn:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: lista os planos disponiveis no mercado pago
+      FunctionName: !Join ["_", [!Ref Environment, "escoladesoftware-mercadopago-lambdalistaplanosfn"]]
+      Handler: app.lambdaHandler
+      CodeUri: src/
+      Runtime: nodejs18.x
+      Timeout: 3
+      Policies:
+        - AmazonSSMReadOnlyAccess
+      Environment:
+        Variables:
+          BaseUrlMercadoPago: !Ref BaseUrlMercadoPago
+          SecretMercadoPagoUseEncryption: !Ref SecretMercadoPagoUseEncryption
+          SecretMercadoPagoPath: !Ref SecretMercadoPagoPath
+    Tags: 
+      - Key: Ambiente
+        Value: !Ref Environment
+      - Key: Microservico
+        Value: MercadoPago
+      - Key: Servico
+        Value: Lambda
+
+  MercadoPagoLambdaListaPlanosLogGroup: 
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: !Join ["", ["/aws/lambda/", !Ref Environment, "_escoladesoftware-mercadopago-lambdalistaplanosfn"]]
+      RetentionInDays: 3
+      Tags: 
+        - Key: Ambiente
+          Value: !Ref Environment
+        - Key: Microservico
+          Value: MercadoPago
+        - Key: Servico
+          Value: LogGroup

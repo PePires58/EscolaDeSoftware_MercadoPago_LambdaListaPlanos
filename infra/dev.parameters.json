@@ -1,0 +1,8 @@
+{
+  "Parameters": {
+    "Environment": "dev",
+    "BaseUrlMercadoPago": "https://api.mercadopago.com",
+    "SecretMercadoPagoPath": "/escoladesoftware/dev/mercadopagokey",
+    "SecretMercadoPagoUseEncryption": "false"
+  }
+}
