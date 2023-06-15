@@ -13,7 +13,9 @@ exports.buscaPlanosAtivos = async function (secret) {
 
                 let planosRetorno;
                 res.on('data', planos => {
-                    planosRetorno = planos;
+                    console.log('planos response');
+                    console.log(planos);
+                    planosRetorno = planos.data;
                 });
                 res.on('end', () => {
                     resolve(planosRetorno);

@@ -1,8 +1,6 @@
 const buscaSecretService = require('./services/busca-secret.service');
 const buscaPlanosService = require('./services/busca-planos.service');
 
-const responseGetPlanoService = require('./services/create-response-get-planos.service');
-
 exports.lambdaHandler = async (event, context) => {
 
     let etapa = 'buscando segredo na AWS';
@@ -11,7 +9,10 @@ exports.lambdaHandler = async (event, context) => {
         const secret = await buscaSecretService.buscaSecret();
 
         etapa = 'buscando planos no mercado pago';
-        let responseGetPlano = responseGetPlanoService.CreateResponse(null, null);
+        let responseGetPlano = {
+            errors: null,
+            data: null
+        }
 
         await buscaPlanosService.buscaPlanosAtivos(secret.Parameter.Value)
             .then((planos) => {
