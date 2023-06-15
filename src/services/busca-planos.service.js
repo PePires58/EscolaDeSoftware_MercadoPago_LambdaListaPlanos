@@ -16,16 +16,12 @@ exports.buscaPlanosAtivos = async function (secret) {
                     planosRetorno = planos;
                 });
                 res.on('end', () => {
-                    resolve({
-                        body: planosRetorno
-                    });
+                    resolve(planosRetorno);
                 });
             });
 
         req.on('error', (e) => {
-            reject({
-                errors: e
-            });
+            reject(e);
         });
     });
 }
