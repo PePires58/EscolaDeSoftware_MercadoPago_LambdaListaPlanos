@@ -20,9 +20,8 @@ exports.lambdaHandler = async (event, context) => {
                 responseGetPlano.errors = error;
             });
 
-        if (responseGetPlano.data) {
+        if (responseGetPlano.data)
             return defaultResult(200, responseGetPlano.data)
-        }
         else
             return errorResult(400, { 'Erro': 'Erro ao buscar planos' });
 
