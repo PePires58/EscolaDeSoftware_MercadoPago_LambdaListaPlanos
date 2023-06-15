@@ -26,7 +26,7 @@ Resources:
       Runtime: nodejs18.x
       Timeout: 2
       Policies:
-        - AmazonDynamoDBFullAccess
+        - AmazonSSMReadOnlyAccess
       Environment:
         Variables:
           BaseUrlMercadoPago: !Ref BaseUrlMercadoPago
