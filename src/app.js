@@ -1,5 +1,6 @@
 const buscaSecretService = require('./services/busca-secret.service');
 const buscaPlanosService = require('./services/busca-planos.service');
+const criaListaPlanosRetorno = require('./services/cria-lista-planos-retorno.service');
 
 exports.lambdaHandler = async (event, context) => {
 
@@ -24,7 +25,9 @@ exports.lambdaHandler = async (event, context) => {
             });
 
         if (responseGetPlano.data)
-            return defaultResult(200, responseGetPlano.data)
+            return defaultResult(200,
+                criaListaPlanosRetorno.CriarLista(responseGetPlano.data)
+            )
         else
             return errorResult(400, { 'Erro': 'Erro ao buscar planos no mercado pago' });
 
