@@ -11,25 +11,16 @@ exports.lambdaHandler = async (event, context) => {
         etapa = 'buscando planos no mercado pago';
         const response = await buscaPlanosService.buscaPlanosAtivos(secret.Parameter.Value);
 
-        if (response.ok) {
+        response.on('data', (data) => {
+            return defaultResult(200, data);
+        });
 
-            etapa = 'devolvendo planos para o cliente';
-
-            response.text().then((text) => {
-                console.log(text);
-            });
-
-
-            response.json()
-                .then((planos) => {
-                    console.log(planos);
-                    return defaultResult(200, planos);
-                });
-        }
-        else
+        response.on('error', (error) => {
+            console.log(`Erro ao ${etapa} - ${error}`);
             return errorResult(400, {
                 'Erro': 'Erro ao buscar planos'
             });
+        });
 
     } catch (error) {
         console.log(`Erro ao ${etapa}`);
