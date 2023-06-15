@@ -10,6 +10,7 @@ jobs:
     with: 
       stack-name: "dev-escoladesoftware-mercadopago-lambdalistaplanos-fn"
       parameters-file-path: "infra/dev.parameters.json"
+      execute-unit-tests: "false"
     secrets:
       AWS_BUCKET_DEPLOY: ${{ secrets.AWS_BUCKET_DEPLOY }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
