@@ -13,13 +13,12 @@ exports.buscaPlanosAtivos = async function (secret) {
         },
             function (res) {
 
-                let planosRetorno;
+                let buffer = [];
                 res.on('data', planos => {
-                    console.log(planos);
-                    planosRetorno = planos;
+                    buffer = Buffer.from(planos);
                 });
                 res.on('end', () => {
-                    resolve(planosRetorno);
+                    resolve(JSON.parse(buffer));
                 });
             });
 
