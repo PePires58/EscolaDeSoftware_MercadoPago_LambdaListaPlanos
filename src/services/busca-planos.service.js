@@ -6,14 +6,17 @@ exports.buscaPlanosAtivos = async function (secret) {
     return await new Promise((resolve, reject) => {
         const req = https.get(urlGetPlanos, {
             headers: {
-                'Authorization': `Bearer ${secret}`
-            }
+                'Authorization': `Bearer ${secret}`,
+                'Content-Type': 'application/json'
+            },
+            method: 'GET'
         },
             function (res) {
 
                 let planosRetorno;
                 res.on('data', planos => {
-                    planosRetorno = Buffer.concat([planos]).toJSON();
+                    console.log(planos);
+                    planosRetorno = planos;
                 });
                 res.on('end', () => {
                     resolve(planosRetorno);
